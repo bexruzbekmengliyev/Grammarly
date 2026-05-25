@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 Oyda Backend + English | Tez Start Platforma</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --accent: #10b981;
+      --border: #e2e8f0;
+      --shadow: 0 8px 24px rgba(0,0,0,0.08);
+      --radius: 14px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --card: #111827;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --border: #334155;
+      --shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: var(--transition);
+      overflow-x: hidden;
+    }
+    header {
+      position: fixed; top: 0; width: 100%;
+      background: rgba(var(--card), 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 1000;
+    }
+    .logo { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
+    .theme-btn {
+      background: none; border: 2px solid var(--border);
+      width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; color: var(--text); font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .theme-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    main { padding-top: 80px; }
+    section { padding: 4rem 5%; }
+    .title { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 2.5rem; position: relative; }
+    .title::after { content: ''; display: block; width: 50px; height: 4px; background: var(--primary); margin: 0.5rem auto 0; border-radius: 2px; }
+
+    .hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, #dbeafe 0%, #f0fdf4 100%); }
+    [data-theme="dark"] .hero { background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%); }
+    .hero h1 { font-size: clamp(2rem, 7vw, 3.8rem); line-height: 1.2; margin-bottom: 1rem; background: linear-gradient(to right, var(--primary), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { max-width: 650px; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; }
+    .btn { padding: 1rem 2rem; background: var(--primary); color: #fff; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
+    .btn:hover { transform: translateY(-3px); background: var(--primary-hover); }
+
+    .roadmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .month-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); position: relative; overflow: hidden; transition: var(--transition); }
+    .month-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+    .badge { position: absolute; top: 1rem; right: 1rem; background: var(--primary); color: #fff; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .month-card h3 { margin: 0.5rem 0; font-size: 1.2rem; }
+    .topics { list-style: none; margin-top: 0.5rem; }
+    .topics li { padding: 0.3rem 0; display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); }
+    .topics i { color: var(--accent); font-size: 0.9rem; }
+
+    .progress-section { background: var(--card); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); margin-top: 2rem; }
+    .progress-bar { height: 10px; background: var(--border); border-radius: 10px; overflow: hidden; margin: 1rem 0; }
+    .progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.6s ease; }
+    .checklist { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .check-item { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.5rem; border-radius: 8px; background: var(--bg); transition: var(--transition); }
+    .check-item:hover { background: var(--primary); color: #fff; }
+    .check-item input { accent-color: var(--accent); }
+
+    .english-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .flashcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; cursor: pointer; perspective: 1000px; height: 200px; position: relative; box-shadow: var(--shadow); }
+    .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+    .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+    .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; border-radius: var(--radius); }
+    .flashcard-front { background: var(--card); color: var(--text); }
+    .flashcard-back { background: var(--primary); color: #fff; transform: rotateY(180deg); }
+    .flashcard span { font-size: 1.1rem; font-weight: 600; }
+    .flashcard small { font-size: 0.85rem; opacity: 0.8; margin-top: 0.5rem; }
+
+    .resources { background: var(--card); padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .res-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .res-card { padding: 1rem; background: var(--bg); border-radius: 10px; display: flex; align-items: center; gap: 0.8rem; transition: var(--transition); }
+    .res-card:hover { background: var(--primary); color: #fff; }
+    .res-card i { font-size: 1.4rem; }
+
+    footer { text-align: center; padding: 2rem 5%; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 3rem; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      section { padding: 3rem 5%; }
+      .hero h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><i class="fas fa-code"></i> Backend+EN</div>
+    <button class="theme-btn" id="themeToggle" aria-label="Mavzuni almashtirish"><i class="fas fa-moon"></i></button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 class="fade-in">5 Oyda Backend Developer<br>+ Ingliz Tili</h1>
+      <p class="fade-in">Tez, tizimli va amaliy yo'l. Har oyda nix o'rganish kerakligi, inglizcha texnik lug'at va progress kuzatuv tizimi bilan.</p>
+      <button class="btn fade-in" onclick="document.getElementById('roadmap').scrollIntoView()">Boshlash <i class="fas fa-arrow-down"></i></button>
+    </section>
+
+    <section id="roadmap">
+      <h2 class="title fade-in">📅 5 Oylik O'quv Rejasi</h2>
+      <div class="roadmap">
+        <div class="month-card fade-in"><span class="badge">1-Oy</span><h3>Web Asoslari & JavaScript</h3><ul class="topics"><li><i class="fas fa-check"></i> HTML5, CSS3, Flexbox/Grid</li><li><i class="fas fa-check"></i> JS: O'zgaruvchilar, funksiyalar, DOM</li><li><i class="fas fa-check"></i> Async/Await, Fetch API</li><li><i class="fas fa-check"></i> 🇬🇧 MDN o'qish, Tech so'zlar</li></ul></div>
+        <div class="month-card fade-in"><span class="badge">2-Oy</span><h3>Server & REST API</h3><ul class="topics"><li><i class="fas fa-check"></i> Node.js + Express (yoki Python FastAPI)</li><li><i class="fas fa-check"></i> Routing, Middleware, CORS</li><li><i class="fas fa-check"></i> RESTful arxitektura prinsiplari</li><li><i class="fas fa-check"></i> 🇬🇧 API hujjatlari yozish, Postman</li></ul></div>
+        <div class="month-card fade-in"><span class="badge">3-Oy</span><h3>Ma'lumotlar Bazasi</h3><ul class="topics"><li><i class="fas fa-check"></i> PostgreSQL / MySQL (SQL)</li><li><i class="fas fa-check"></i> MongoDB (NoSQL)</li><li><i class="fas fa-check"></i> CRUD, Joins, Indexlar</li><li><i class="fas fa-check"></i> 🇬🇧 DB terminologiya, Stack Overflow</li></ul></div>
+        <div class="month-card fade-in"><span class="badge">4-Oy</span><h3>Xavfsizlik & Autentifikatsiya</h3><ul class="topics"><li><i class="fas fa-check"></i> JWT, OAuth 2.0, Session</li><li><i class="fas fa-check"></i> Password hashing (bcrypt)</li><li><i class="fas fa-check"></i> Rate limiting, Input validatsiya</li><li><i class="fas fa-check"></i> 🇬🇧 Security best practices, RFC o'qish</li></ul></div>
+        <div class="month-card fade-in"><span class="badge">5-Oy</span><h3>Deploy & Final Loyiha</h3><ul class="topics"><li><i class="fas fa-check"></i> Docker asoslari, CI/CD</li><li><i class="fas fa-check"></i> Render / Vercel / AWS free tier</li><li><i class="fas fa-check"></i> Portfolio, README yozish</li><li><i class="fas fa-check"></i> 🇬🇧 Interview tayyorgarlik, GitHub</li></ul></div>
+      </div>
+    </section>
+
+    <section id="progress">
+      <h2 class="title fade-in">📊 Shaxsiy Progress</h2>
+      <div class="progress-section fade-in">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3>Umumiy natija</h3>
+          <span id="progressText">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="checklist" id="checklist"></div>
+      </div>
+    </section>
+
+    <section id="english">
+      <h2 class="title fade-in">🇬🇧 Backend uchun Ingliz Lug'ati</h2>
+      <p class="fade-in" style="text-align:center; color:var(--text-muted); margin-bottom:1.5rem;">Kartochkalarni bosing → Tarjima va izoh chiqadi</p>
+      <div class="english-grid" id="flashcards"></div>
+    </section>
+
+    <section id="resources">
+      <h2 class="title fade-in">📚 Bepul Resurslar</h2>
+      <div class="resources fade-in">
+        <div class="res-grid">
+          <a href="https://developer.mozilla.org" target="_blank" class="res-card"><i class="fas fa-book"></i><span>MDN Web Docs</span></a>
+          <a href="https://www.freecodecamp.org" target="_blank" class="res-card"><i class="fas fa-laptop-code"></i><span>freeCodeCamp</span></a>
+          <a href="https://roadmap.sh/backend" target="_blank" class="res-card"><i class="fas fa-map"></i><span>Backend Roadmap</span></a>
+          <a href="https://www.grammarly.com" target="_blank" class="res-card"><i class="fas fa-spell-check"></i><span>Grammarly</span></a>
+          <a href="https://postman.com" target="_blank" class="res-card"><i class="fas fa-paper-plane"></i><span>Postman API</span></a>
+          <a href="https://github.com" target="_blank" class="res-card"><i class="fab fa-github"></i><span>GitHub</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Backend+EN Platform | Har kuni 2 soat = 5 oyda natija 💻🌍</p>
+    <p style="font-size:0.85rem; margin-top:0.5rem;">Barcha ma'lumotlar progress brauzerda saqlanadi (localStorage)</p>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    html.setAttribute('data-theme', savedTheme);
+    themeBtn.querySelector('i').className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+    themeBtn.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      themeBtn.querySelector('i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+      localStorage.setItem('theme', html.getAttribute('data-theme'));
+    });
+
+    // Progress Checklist
+    const checklistData = [
+      "HTML/CSS asoslari", "JavaScript sintaksis", "DOM & Fetch", "Node.js o'rnatish",
+      "Express server", "REST tushunchasi", "PostgreSQL o'rnatish", "SQL so'rovlar",
+      "MongoDB CRUD", "JWT autentifikatsiya", "Xavfsizlik prinsiplari", "Docker asoslari",
+      "Deploy qilish", "Portfolio yig'ish", "README yozish", "GitHub'da loyiha"
+    ];
+    const checklistEl = document.getElementById('checklist');
+    const savedChecks = JSON.parse(localStorage.getItem('checks') || '{}');
+
+    checklistData.forEach((item, i) => {
+      const checked = savedChecks[i] || false;
+      const div = document.createElement('div');
+      div.className = 'check-item';
+      div.innerHTML = `<input type="checkbox" id="check${i}" ${checked ? 'checked' : ''}><label for="check${i}">${item}</label>`;
+      checklistEl.appendChild(div);
+      div.querySelector('input').addEventListener('change', (e) => {
+        savedChecks[i] = e.target.checked;
+        localStorage.setItem('checks', JSON.stringify(savedChecks));
+        updateProgress();
+      });
+    });
+
+    function updateProgress() {
+      const total = checklistData.length;
+      const done = Object.values(savedChecks).filter(Boolean).length;
+      const percent = Math.round((done / total) * 100);
+      document.getElementById('progressText').textContent = percent + '%';
+      document.getElementById('progressFill').style.width = percent + '%';
+    }
+    updateProgress();
+
+    // Flashcards
+    const vocab = [
+      { en: "Endpoint", uz: "API manzili", def: "Ma'lumot olish/yuborish uchun URL" },
+      { en: "Middleware", uz: "Oraliq qatlam", def: "So'rov va javob o'rtasida ishlovchi funksiya" },
+      { en: "CRUD", uz: "Yaratish/O'qish/O'zgartirish/O'chirish", def: "Create, Read, Update, Delete" },
+      { en: "Authentication", uz: "Avtorizatsiya", def: "Foydalanuvchi identifikatsiyasi" },
+      { en: "Deploy", uz: "Joylashtirish", def: "Loyihani serverga yuklash va ishga tushirish" },
+      { en: "Repository", uz: "Repozitoriy", def: "Kod saqlanadigan GitHub papkasi" }
+    ];
+    const flashcardsEl = document.getElementById('flashcards');
+    vocab.forEach(v => {
+      const card = document.createElement('div');
+      card.className = 'flashcard';
+      card.innerHTML = `
+        <div class="flashcard-inner">
+          <div class="flashcard-front"><span>${v.en}</span><small>Bosing →</small></div>
+          <div class="flashcard-back"><span>${v.uz}</span><small>${v.def}</small></div>
+        </div>`;
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+      flashcardsEl.appendChild(card);
+    });
+
+    // Scroll Animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
